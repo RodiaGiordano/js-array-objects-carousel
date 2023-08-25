@@ -78,12 +78,18 @@ let countSlides = 0
 buttonDown.addEventListener('click', () =>{
 
     pictures[countSlides].classList.add('d-none')
-
     countSlides++
+
     pictures[countSlides].classList.remove('d-none')
     
-    
-})
+    if(countSlides == pictures.length - 1){
+        pictures[countSlides].classList.add('d-none')
+        countSlides = 0
+
+        pictures[countSlides].classList.remove('d-none')
+        
+    } 
+    })
 
 
 
