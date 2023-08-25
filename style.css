@@ -1,3 +1,34 @@
-*{
-    border: 1px dashed red;
+
+
+.container{
+    padding: 0;
+    border-radius: 20px;
+    overflow: hidden;
+    
 }
+
+.jumbo_film, .film_aside{
+    max-height: 412px;
+    
+}
+
+.jumbo_film > img{
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    object-fit: cover;
+    
+}
+
+.picture_film{
+    height: calc(100%/5);
+}
+
+.picture_film> img{
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    object-fit: cover;
+
+}
+
