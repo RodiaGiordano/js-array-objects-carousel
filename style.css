@@ -48,3 +48,20 @@
 
 }
 
+
+.film_aside> button{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+
+    border-radius: 50%;
+    aspect-ratio: 1;
+}
+
+#button_up{
+    top: 40px;
+}
+
+#button_down{
+    top: 370px;
+}
