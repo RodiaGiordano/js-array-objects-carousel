@@ -26,4 +26,66 @@ const images = [
     },
   ];
 
-  
+
+const jumboFilm = document.getElementById('jumbo_film');
+
+let imgEl="";
+let titleEl="";
+let textEl="";
+
+// con variabili appoggio definisco il template da inserire nel jumbo
+for(const picture of images){
+
+    
+    
+    for(const attribute in picture){
+
+        imgEl = picture.image;
+        titleEl= picture.title;
+        textEl= picture.text;
+        
+    }
+    
+    const filmEl = `<img src="${imgEl}" alt="" class=' '>
+    <div class="discale">
+
+    </div>
+    <div class="caption px-5 d-none">               
+        <h4 id="title_picture">${titleEl}</h4>
+        <p id="text_picture">${textEl}</p>
+    </div>`
+    
+    jumboFilm.innerHTML += filmEl;
+    
+}
+
+const pictures = document.querySelectorAll('div.d-none')
+
+
+
+
+
+
+// const buttonUp = document.getElementById('button_up');
+// const buttonDown = document.getElementById('button_down');
+
+
+
+// buttonUp.addEventListener('click', () =>{
+    
+//     const pictures = document.querySelector('div.picture_film')
+
+
+//     console.log(pictures)
+
+// })
+
+
+
+
+
+
+/**
+ * 
+ * 
+ */
