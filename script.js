@@ -33,34 +33,39 @@ let imgEl="";
 let titleEl="";
 let textEl="";
 
+
+
 // con variabili appoggio definisco il template da inserire nel jumbo
 for(const picture of images){
 
     
+    
+
     
     for(const attribute in picture){
 
         imgEl = picture.image;
         titleEl= picture.title;
         textEl= picture.text;
-        
-    }
-    
-    const filmEl = `<img src="${imgEl}" alt="" class=' '>
-    <div class="discale">
 
-    </div>
-    <div class="caption px-5 d-none">               
-        <h4 id="title_picture">${titleEl}</h4>
-        <p id="text_picture">${textEl}</p>
-    </div>`
+        const filmEl = `
+        <div class="card d-none">
+            <img src="${imgEl}" alt=""> 
+            <div class="caption px-5">               
+                <h4 id="title_picture">${titleEl}</h4>
+                <p id="text_picture">${textEl}</p>
+            </div>
+        </div>`
     
-    jumboFilm.innerHTML += filmEl;
+        jumboFilm.innerHTML += filmEl;
+    }
     
 }
 
-const pictures = document.querySelectorAll('div.d-none')
+// recupero il'immagine del primo templates e remove d-none
+const pictures = document.querySelector('.card.d-none')
 
+pictures.classList.remove('d-none')
 
 
 
