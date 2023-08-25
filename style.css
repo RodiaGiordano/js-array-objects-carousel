@@ -8,6 +8,7 @@
 }
 
 .jumbo_film, .film_aside{
+    position: relative;
     max-height: 412px;
     
 }
@@ -17,12 +18,27 @@
     height: 100%;
     display: inline-block;
     object-fit: cover;
-    
 }
 
-.picture_film{
-    height: calc(100%/5);
+
+.jumbo_film> .caption{
+    position: absolute;
+    bottom: 0;
+    left:0;
+
+    text-align: right;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: bold;
 }
+
+
+
+
+.picture_film{
+    height: calc(100% / 5);
+}
+
 
 .picture_film> img{
     width: 100%;
