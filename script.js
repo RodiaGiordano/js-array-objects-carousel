@@ -20,13 +20,16 @@ const images = [
       text: 'Lost, injured and alone, a stray cat must untangle an ancient mystery to escape a long-forgotten city',
     },
     {
-      image: 'img/05.webp',
-      title: "Marvel's Avengers",
-      text: "Marvel's Avengers is an epic, third-person, action-adventure game that combines an original, cinematic story with single-player and co-operative gameplay.",
+        image: 'img/05.webp',
+        title: "Marvel's Avengers",
+        text: "Marvel's Avengers is an epic, third-person, action-adventure game that combines an original, cinematic story with single-player and co-operative gameplay.",
     },
-  ];
+];
 
 
+
+const buttonUp = document.getElementById('button_up');
+const buttonDown = document.getElementById('button_down');
 const jumboFilm = document.getElementById('jumbo_film');
 
 let imgEl="";
@@ -38,59 +41,47 @@ let textEl="";
 // con variabili appoggio definisco il template da inserire nel jumbo
 for(const picture of images){
 
-    
-    
-
-    
+        
     for(const attribute in picture){
 
         imgEl = picture.image;
         titleEl= picture.title;
         textEl= picture.text;
 
-        const filmEl = `
-        <div class="card d-none">
-            <img src="${imgEl}" alt=""> 
-            <div class="caption px-5">               
-                <h4 id="title_picture">${titleEl}</h4>
-                <p id="text_picture">${textEl}</p>
-            </div>
-        </div>`
-    
-        jumboFilm.innerHTML += filmEl;
     }
+    // inserico il templates
+    const filmEl = `
+    <div class="card d-none">
+        <img src="${imgEl}" alt=""> 
+        <div class="caption px-5">               
+            <h4 id="title_picture">${titleEl}</h4>
+            <p id="text_picture">${textEl}</p>
+        </div>
+    </div>`
+
+    jumboFilm.innerHTML += filmEl;
     
 }
 
 // recupero il'immagine del primo templates e remove d-none
-const pictures = document.querySelector('.card.d-none')
-
-pictures.classList.remove('d-none')
-
+const picture = document.querySelector('.card.d-none')
+picture.classList.remove('d-none')
 
 
+const pictures = document.querySelectorAll('.card')
+console.log(pictures)
+
+// bottoni up/down per scorrere il'immagine selezionata
 
 
-// const buttonUp = document.getElementById('button_up');
-// const buttonDown = document.getElementById('button_down');
+buttonUp.addEventListener('click', () =>{
 
-
-
-// buttonUp.addEventListener('click', () =>{
     
-//     const pictures = document.querySelector('div.picture_film')
-
-
-//     console.log(pictures)
-
-// })
+    
+    
+})
 
 
 
 
 
-
-/**
- * 
- * 
- */
