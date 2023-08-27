@@ -20,7 +20,7 @@
 <body>
     <main>
 
-        <div class="container d-flex my-5">
+        <div class="container d-flex my-5 justify-content-center">
             
             <div id="jumbo_film" class="col-9">          
                 <!-- qui vanno i templates-->
@@ -32,22 +32,27 @@
                         <!-- blocco picture aside -->
                 <div class="picture_film">
                     <img src="img/01.webp" alt="">
+                    <div class="border selected"></div>
                 </div>
 
                 <div class="picture_film">
                     <img src="img/02.webp" alt="">
+                    <div class="border"></div>
                 </div>
 
                 <div class="picture_film">
                     <img src="img/03.webp" alt="">
+                    <div class="border"></div>
                 </div>
 
                 <div class="picture_film">
                     <img src="img/04.webp" alt="">
+                    <div class="border"></div>
                 </div>
 
                 <div class="picture_film">
                     <img src="img/05.webp" alt="">
+                    <div class="border"></div>
                 </div>
 
                 <!-- Bottoni su/giu-->
@@ -59,17 +64,32 @@
                 <button type="button" id="button_down" class="btn btn-light">
                     <i class="fa-solid fa-chevron-down"></i>
                 </i></button>
-
-
-
-                
             </div>
+
+            <!-- bottoni del player -->
+                <div class="player col-12 d-flex flex-wrap justify-content-center gap-2 ">
+
+                    <div id="progressive_bar">
+                        <div class="time_to_next">
+                            <!-- time bar -->
+                        </div>
+                    </div>
+
+                    <!-- player -->
+                    <button class="btn p-1" id="play_backwards">
+                        <i class="fa-solid fa-backward fa-2xl"></i>
+                    </button>
+                    <button class="btn p-1 d-none" id="stop">
+                        <i class="fa-regular fa-circle-pause fa-2xl"></i>
+                    </button>
+                    <button class="btn p-1" id="player_play">
+                        <i class="fa-solid fa-circle-play fa-2xl"></i>
+                    </button>
+                </div>                
         </div>
         
     </main>
     
-    
-
    
 
 
