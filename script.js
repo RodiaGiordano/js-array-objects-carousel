@@ -27,115 +27,203 @@ const images = [
 ];
 
 
-
-const buttonUp = document.getElementById('button_up');
-const buttonDown = document.getElementById('button_down');
+// container jumbo e aside
 const jumboFilm = document.getElementById('jumbo_film');
+const filmAside = document.getElementById('film_aside');
 
-const buttonPlay = document.getElementById('player_play');
-const buttonStop = document.getElementById('stop');
-const buttonPlayBackwards = document.getElementById('play_backwards');
-
-
-let imgEl="";
-let titleEl="";
-let textEl="";
 
 
 // con variabili appoggio definisco il template da inserire nel jumbo
+let imgEl="";
+let titleEl="";
+let textEl="";
+let selected="";
+
+
 for(const picture of images){
-
     
-    let active = picture == images[0] ? 'active' : ''; // in questo modo la prima slide è visibile da subito
-        
+    // la prima picture sarà visibile nel jumbo e selezionata nell'aside
+    active = picture == images[0] ? 'active' : ''; 
+    selected = picture == images[0] ? 'selected' : '';
+    
     for(const attribute in picture){
-
+        
         imgEl = picture.image;
         titleEl= picture.title;
         textEl= picture.text;
-
+        
         
     }
-    // inserico il templates
-    const filmEl = `
+    // jumbo-picture
+    const jumboEl = `
     <div class="card ${active}">
         <img src="${imgEl}" alt=""> 
-        <div class="caption px-5">               
+        <div class="caption pe-4">               
             <h4 id="title_picture">${titleEl}</h4>
             <p id="text_picture">${textEl}</p>
         </div>
     </div>`
-
-    jumboFilm.innerHTML += filmEl;
     
-
+    
+    // aside pictures
+    const asideEl = 
+    `<div class="picture_film">
+        <img src="${imgEl}" alt="">
+        <div class="border ${selected}">
+        </div>
+    </div>`
+    
+    jumboFilm.innerHTML += jumboEl;
+    filmAside.innerHTML += asideEl;
+    
 }
 
-const pictures = document.querySelectorAll('.card')
-console.log(pictures)
-const borders = document.querySelectorAll('.border')
+
+// prendo bottoni manuali
+const buttonUp = document.getElementById('button_up');
+const buttonDown = document.getElementById('button_down');
+
+// bottoni player
+const buttonPlay = document.getElementById('player_play');
+const buttonStop = document.getElementById('stop');
+const buttonPlayBackwards = document.getElementById('play_backwards');
+const timeBar = document.getElementById('progressive_bar');
+
+
+// recupero le NodeList delle card e boxshadow
+const pictures = document.querySelectorAll('.card');
+const asidePictures = document.querySelectorAll('.border');
+
+// counter d'appoggio per lefunzioni
 let activeSilde = 0;
 let activeBorder = 0;
 
+// bottoni manuali
 buttonUp.addEventListener('click', function(){
+    
+    
+    activeSilde = buttonCarosel(activeSilde, pictures, true, 'active');
+    activeBorder = buttonCarosel(activeBorder, asidePictures, true, 'selected');
+    
+})
 
-    buttonCarosel(activeSilde, pictures, true)
 
-    caroselBorder(activeBorder, borders, true)
+buttonDown.addEventListener('click', function(){
+    
+    activeSilde = buttonCarosel(activeSilde, pictures, false, 'active');
+    
+    activeBorder = buttonCarosel(activeBorder, asidePictures, false, 'selected');
+    
+})
+
+
+
+
+
+// player carosello
+
+let playButton; // variabile d'appoggio
+
+
+// bottone per scorrere automaticamente in avanti
+buttonPlay.addEventListener('click', function(){
+    
+    buttonPlay.classList.add('d-none');
+    buttonPlayBackwards.classList.add('d-none');     // button play lascia il posto a stop
+    buttonStop.classList.remove('d-none');
 
     
 
+    timeBar.classList.add('play') // aggungo l'animazione della barra    
+   
+
+    
+    activeSilde = buttonCarosel(activeSilde, pictures, false, 'active');
+    
+    activeBorder = buttonCarosel(activeBorder, asidePictures, false, 'selected');
+    
+    
+    playButton = setInterval(function(){
+
+
+        activeSilde = buttonCarosel(activeSilde, pictures, false, 'active');
+        
+        activeBorder = buttonCarosel(activeBorder, asidePictures, false, 'selected');  
+
+    }, 3000)
 })
 
-buttonDown.addEventListener('click', function(){
+// bottone per scorrere automaticamente all'indietro
+buttonPlayBackwards.addEventListener('click', function(){
+    
+    buttonPlay.classList.add('d-none');
+    buttonPlayBackwards.classList.add('d-none');     // button play lascia il posto a stop
+    buttonStop.classList.remove('d-none');
 
-    buttonCarosel(activeSilde, pictures, false)
 
-    caroselBorder(activeBorder, borders, false)
+    timeBar.classList.add('play') // aggungo l'animazione della barra
+
+    
+    activeSilde = buttonCarosel(activeSilde, pictures, true, 'active');
+    
+    activeBorder = buttonCarosel(activeBorder, asidePictures, true, 'selected');
+    
+    playButton = setInterval(function(){
+        
+        activeSilde = buttonCarosel(activeSilde, pictures, true, 'active');
+        
+        activeBorder = buttonCarosel(activeBorder, asidePictures, true, 'selected');  
+        
+    }, 3000)
+})
+
+
+
+// button sto. clear button stop/backwards
+buttonStop.addEventListener('click', function(){ 
+
+    timeBar.classList.remove('play')
+
+    clearInterval(playButton)
+    clearInterval(buttonPlayBackwards)
+    buttonPlay.classList.remove('d-none');
+    buttonPlayBackwards.classList.remove('d-none');     // button play lascia il posto a stop
+    buttonStop.classList.add('d-none');
 
 })
 
 
-const asidePictures = document.querySelectorAll('.picture_film');
-console.log(asidePictures)
+
+
+
 
 
 
 
 /** function caroselButton, imposta i tasti di avanti ed indietro in un loop
- *  @param {int} activeSildes regola il counter interno per scorrere l'array
+ *  @param {int} activeIndex regola il counter interno per scorrere l'array
  * @param {array} array l'array che deve scorrere
  * @param {boolean} true se next, prev se false
+ * @param {string} className la classe da inserire e rimuovere
+ * @returns {int} tirona un intero se dovesse servire separare i counter
  * 
  * */ 
 
-function buttonCarosel(activeSildes, array, boolean){
+function buttonCarosel(activeIndex, listEl, boolean, className){
 
-    pictures[activeSilde].classList.remove('active')
+    listEl[activeIndex].classList.remove(className)
     
-    boolean ? activeSilde-- : activeSilde++
+    boolean ? activeIndex-- : activeIndex++
 
-    if(activeSilde == pictures.length ) activeSilde = 0;
-    if(activeSilde < 0) activeSilde = pictures.length -1
+    if(activeIndex == listEl.length) activeIndex = 0;
+    if(activeIndex < 0) activeIndex = listEl.length -1
 
-    let newActiveSlide = pictures[activeSilde]
+    let newActiveIndex = listEl[activeIndex]
 
-    newActiveSlide.classList.add('active')
-    
+    newActiveIndex.classList.add(className)
+
+    return activeIndex;
+   
 }
 
 
-function caroselBorder(ActiveBorder, array, boolean){
-
-    
-    borders[activeBorder].classList.remove('selected')
-    
-    boolean ? activeBorder-- : activeBorder++
-    
-    if(activeBorder == borders.length ) activeBorder = 0;
-    if(activeBorder < 0) activeBorder = borders.length -1
-    
-    let newActiveBorder = borders[activeBorder]
-    
-    newActiveBorder.classList.add('selected')
-}

@@ -8,7 +8,7 @@
     
 }
 
-#jumbo_film, .film_aside{
+#jumbo_film, #film_aside{
     position: relative;
     max-height: 412px;
     
@@ -35,20 +35,21 @@
 }
 
 
-
-
 .card .caption{
     position: absolute;
     bottom: 0;
-    left:0;
+    right:0;
+
+    width: 100%;
+    height: calc(100% / 4);
 
     text-align: right;
-    color: white;
+    color: whitesmoke;
     font-size: 0.8rem;
     font-weight: bold;
+
+    background-color: rgba(0, 0, 0, 0.5);
 }
-
-
 
 
 .picture_film{
@@ -67,20 +68,20 @@
 }
 
 
-.film_aside> button{
+#film_aside> button{
     position: absolute;
     left: 50%;
     transform: translate(-50%, -50%); 
-
+    
     border-radius: 50%;
     aspect-ratio: 1;
-
-    display: none;
+    
 }
 
-.film_aside:hover > button{
+#film_aside:hover > button{
     display: block;
-
+    z-index: 99;
+    
 }
 
 #button_up{
@@ -98,16 +99,35 @@
     left: 0;
     width: 100%;
     height: 100%;
-
     cursor: pointer;
     
-    box-shadow: inset 0 0 0 10px white;
+    box-shadow: inset 0 0 0 5px limegreen;
 }
 
 
 #progressive_bar{
-   
+    height: 5px;
+    width: 0%;
+    background-color: lime;   
+    
+}
+
+.time_to_next{
     height: 5px;
     width: 100%;
-    background-color: lightgray;
+    background-color: black;    
+}
+
+
+.play{
+    animation-name: time_bar;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+}
+
+
+@keyframes time_bar{
+    0% {width: 0%}
+    99.9% {width: 100%}
+    100% {width: 0%}
 }
